@@ -1,0 +1,7 @@
+package com.web.wsc_backend.enums;
+
+public enum ContactTypeEnum {
+
+    OWNER,
+    DRIVER,
+}

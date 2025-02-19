@@ -1,0 +1,16 @@
+spring.application.name=wsc-app
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/wsc-postgres
+spring.datasource.username=postgres
+spring.datasource.password=wscappweb
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=true
+
+server.port=9090
+
+spring.flyway.clean-on-validation-error=true
+spring.flyway.clean-disabled=false

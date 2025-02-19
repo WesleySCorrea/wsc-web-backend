@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  wsc-app-database:
+    image: postgres:latest
+    container_name: WSC-DataBase
+    environment:
+      POSTGRES_DB: wsc-postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: wscappweb
+    ports:
+      - "5432:5432"
+    networks:
+      - wsc-network
+
+networks:
+  wsc-network:

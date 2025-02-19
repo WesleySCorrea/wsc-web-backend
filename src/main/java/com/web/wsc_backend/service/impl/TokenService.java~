@@ -1,0 +1,8 @@
+package com.web.wsc_backend.service.impl;
+
+import com.web.wsc_backend.DTO.auth.response.LoginResponse;
+
+public interface TokenService {
+
+    LoginResponse 
+}

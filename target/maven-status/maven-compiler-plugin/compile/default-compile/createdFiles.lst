@@ -1,0 +1,10 @@
+com\web\wsc_backend\config\JwtFilter.class
+com\web\wsc_backend\entity\Users.class
+com\web\wsc_backend\enums\RoleEnum.class
+com\web\wsc_backend\service\UserService.class
+com\web\wsc_backend\config\SecurityConfig.class
+com\web\wsc_backend\controller\UserController.class
+com\web\wsc_backend\WscBackendApplication.class
+com\web\wsc_backend\service\impl\UserServiceImpl.class
+com\web\wsc_backend\repository\projetions\LoginUser.class
+com\web\wsc_backend\repository\UserRepository.class

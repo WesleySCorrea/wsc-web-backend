@@ -1,0 +1,5 @@
+package com.web.wsc_backend.enums;
+
+public class StatusEnum {
+
+}

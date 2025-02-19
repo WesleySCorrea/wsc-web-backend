@@ -1,0 +1,44 @@
+package com.web.wsc_backend.service.impl;
+
+import com.web.wsc_backend.DTO.login.request.LoginRequestDTO;
+import com.web.wsc_backend.DTO.login.request.RefreshRequestDTO;
+import com.web.wsc_backend.DTO.login.response.LoginResponse;
+import com.web.wsc_backend.DTO.user.UserDTO;
+import com.web.wsc_backend.DTO.user.UserInfoDTO;
+import com.web.wsc_backend.entity.Users;
+import com.web.wsc_backend.service.LoginService;
+import com.web.wsc_backend.service.TokenService;
+import com.web.wsc_backend.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class LoginServiceImpl implements LoginService {
+    private final UserService userService;
+    private final TokenService tokenService;
+
+    @Override
+    public LoginResponse login(LoginRequestDTO loginRequestDTO) {
+
+        UserDTO userDTO = userService.findByUsername(loginRequestDTO.getUsername());
+
+        if(!userDTO.getPassword().equals(loginRequestDTO.getPassword())){
+            throw new IllegalArgumentException("Usuário ou senha inválidos");
+        }
+
+        UserInfoDTO userInfoDTO = new UserInfoDTO(userDTO);
+
+        return this.tokenService.generateAccessToken(userInfoDTO);
+    }
+
+    @Override
+    public LoginResponse loginWithRefresh(RefreshRequestDTO refreshToken) {
+
+        String userName = tokenService.validateRefreshTokenAndExtractUserName(refreshToken.getRefreshToken());
+
+        UserDTO user = userService.findByUsername(userName);
+
+        return tokenService.generateAccessToken(new UserInfoDTO(user));
+    }
+}

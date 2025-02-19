@@ -1,0 +1,65 @@
+package com.web.wsc_backend.service.impl;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.web.wsc_backend.DTO.login.response.LoginResponse;
+import com.web.wsc_backend.DTO.user.UserDTO;
+import com.web.wsc_backend.DTO.user.UserInfoDTO;
+import com.web.wsc_backend.service.TokenService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+@Service
+@RequiredArgsConstructor
+public class TokenServiceImpl implements TokenService {
+
+    private static final String SECRET_KEY = "WSC-APP-Secrety";
+    private static final long EXPIRATION_TIME = 3600000;
+    private static final long REFRESH_TOKEN_EXPIRATION_TIME = 72000000;
+    @Override
+    public LoginResponse generateAccessToken(UserInfoDTO user) {
+
+        Date expiration = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
+        Date expirationRefreshToken = new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRATION_TIME);
+
+        String accessToken = JWT.create()
+                .withSubject(user.getUsername())
+                .withClaim("id", user.getId())
+                .withClaim("name", user.getName())
+                .withClaim("email", user.getEmail())
+                .withClaim("role", user.getRole().name())
+                .withIssuedAt(new Date())
+                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .sign(Algorithm.HMAC256(SECRET_KEY));
+
+        String refreshToken = this.generateRefreshToken(user, expirationRefreshToken);
+
+        return new LoginResponse(user, accessToken, refreshToken, expiration, expirationRefreshToken);
+    }
+
+    private String generateRefreshToken(UserInfoDTO user, Date expirationRefreshToken) {
+
+        return JWT.create()
+                .withSubject(user.getUsername())
+                .withClaim("id", user.getId())
+                .withIssuedAt(new Date())
+                .withExpiresAt(expirationRefreshToken)
+                .sign(Algorithm.HMAC256(SECRET_KEY));
+    }
+
+    public String validateRefreshTokenAndExtractUserName(String token) {
+        try {
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY))
+                    .build();
+            DecodedJWT decodedJWT = verifier.verify(token);
+
+            return decodedJWT.getSubject();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao extrair informações do refresh token: " + e.getMessage(), e);
+        }
+    }
+}

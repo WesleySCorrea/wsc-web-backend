@@ -1,0 +1,4 @@
+package com.web.wsc_backend.DTO.login.request;
+
+public class RefreshRequestDTO {
+}
