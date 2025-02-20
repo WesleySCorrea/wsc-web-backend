@@ -27,5 +27,5 @@ public class Contacts {
     private ContactTypeEnum type;
     @ManyToOne
     @JoinColumn(name = "enterprise_id", nullable = false)
-    private Enterprises enterprisesId;
+    private Enterprises enterprise;
 }

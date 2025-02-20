@@ -4,11 +4,13 @@ import com.web.wsc_backend.enums.TypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "cars")
 public class Cars {
@@ -24,7 +26,7 @@ public class Cars {
     private String chassis;
     @ManyToOne
     @JoinColumn(name = "enterprise_id", nullable = false)
-    private Enterprises enterprisesId;
+    private Enterprises enterprise;
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private TypeEnum type;

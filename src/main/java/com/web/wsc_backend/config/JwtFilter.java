@@ -1,10 +1,12 @@
 package com.web.wsc_backend.config;
 
+import com.web.wsc_backend.exceptions.runtime.PersistFailedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,14 +20,16 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (request.getRequestURI().equals("/api/v1/login/refresh") || request.getRequestURI().equals("/api/v1/login")) {
+        if (request.getRequestURI().equals("/api/v1/login/refresh") || request.getRequestURI().equals("/api/v1/login")
+                || request.getRequestURI().equals("/api/v1/cars") || request.getRequestURI().equals("/api/v1/users")) {
             // Se for o login, não precisa validar o token, apenas passa a requisição adiante
             filterChain.doFilter(request, response);
             return;
         }
 
-        try {
-            String token = this.getTokenFromRequest(request);
+
+        String token = this.getTokenFromRequest(request);
+
 
 //            UserInfoDTO userInfoDTO = tokenService.validateTokenAndExtractUserInfo(token);
 //
@@ -38,16 +42,6 @@ public class JwtFilter extends OncePerRequestFilter {
 //            authentication.setDetails(userInfoDTO);
 //
 //            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        } catch(Exception ex){
-            // Em caso de erro na validação do token
-            logger.error("Erro na validação do token: {}", new Throwable(ex));
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("{\"error\":\"Token inválido\"}");
-            return;
-        }
-
-
         filterChain.doFilter(request, response);
     }
 
@@ -56,6 +50,6 @@ public class JwtFilter extends OncePerRequestFilter {
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
-        return null;
+        throw new PersistFailedException("Token not found");
     }
 }

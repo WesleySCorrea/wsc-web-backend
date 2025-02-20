@@ -27,7 +27,7 @@ public class Tasks {
     private StatusEnum status;
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
-    private Enterprises enterprise;
+    private Enterprises enterpriseId;
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     private Cars car;
