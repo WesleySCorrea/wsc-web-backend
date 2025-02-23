@@ -1,7 +1,0 @@
-package com.web.wsc_backend.service;
-
-import com.web.wsc_backend.DTO.user.UserInfoDTO;
-
-public interface UserService {
-    UserInfoDTO findUserInfoDTO(String username);
-}

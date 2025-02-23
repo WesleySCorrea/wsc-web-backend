@@ -1,0 +1,37 @@
+package com.web.wsc_backend.entity;
+
+import com.web.wsc_backend.enums.TypeEnum;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "cars")
+public class Cars {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "plate", unique = true)
+    private String plate;
+    @Column(name = "year")
+    private Long year;
+    @Column(name = "chassis", unique = true)
+    private String chassis;
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id", nullable = false)
+    private Enterprises enterprise;
+    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TypeEnum type;
+    @Column(nullable = false)
+    private Integer manufactureYear;
+    @Column(name = "maturity", nullable = false)
+    private LocalDate maturity;
+}

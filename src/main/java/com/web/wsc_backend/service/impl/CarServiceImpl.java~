@@ -30,8 +30,8 @@ public class CarServiceImpl implements CarService {
                 plate,
                 enterprise,
                 type,
-                startDate,
-                endDate,
+                startDateSQL,
+                endDateSQL,
                 pageable);
 
         Page<CarResponseDTO> carsDTOpage = carsPage

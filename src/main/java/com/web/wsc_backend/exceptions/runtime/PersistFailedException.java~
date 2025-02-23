@@ -1,4 +1,0 @@
-package com.web.wsc_backend.exceptions.runtime;
-
-public class PersistFailedException {
-}

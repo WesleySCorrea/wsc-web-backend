@@ -1,0 +1,13 @@
+package com.web.wsc_backend.repository;
+
+public class  Queries {
+
+    public static final String FIND_CARS_BY_FILTERS = """
+        SELECT c.id, c.plate, c.type, c.maturity, c.maturity  FROM cars c
+        JOIN enterprises e ON e.id = c.enterprise_id
+        WHERE c.plate ILIKE COALESCE('%' || :plate || '%', plate)
+        AND e.name ILIKE COALESCE('%' || :enterprise || '%', e.name)
+        AND c.maturity >= COALESCE(:startDate, c.maturity)
+        AND c.maturity <= COALESCE(:endDate, c.maturity)
+        """;
+}

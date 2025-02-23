@@ -2,7 +2,6 @@ package com.web.wsc_backend.controller;
 
 import com.web.wsc_backend.DTO.car.request.CarRequestDTO;
 import com.web.wsc_backend.DTO.car.response.CarResponseDTO;
-import com.web.wsc_backend.enums.TypeEnum;
 import com.web.wsc_backend.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,7 @@ public class CarController {
     public ResponseEntity<Page<CarResponseDTO>> findCarsByFilter(
             @RequestParam(required = false) String plate,
             @RequestParam(required = false) String enterprise,
-            @RequestParam(required = false) TypeEnum type,
+            @RequestParam(required = false) String type,
             @RequestParam(required = false) LocalDate startDate,
             @RequestParam(required = false) LocalDate endDate,
             Pageable pageable) {
