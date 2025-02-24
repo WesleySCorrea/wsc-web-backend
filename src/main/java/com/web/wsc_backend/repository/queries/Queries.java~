@@ -12,7 +12,5 @@ public class Queries {
 
     public static final String FIND_TYPE_CARS_BY_FILTERS ="""
             SELECT DISTINCT c.type FROM Cars c
-            WHERE (:idEnterprise IS NULL OR c.enterprise.id = :idEnterprise)
-            AND (c.maturity >= COALESCE(:startDate, (SELECT MIN(c2.maturity) FROM Cars c2)))
-            AND (c.maturity <= COALESCE(:endDate, (SELECT MAX(c2.maturity) FROM Cars c2)))""";
+            WHERE (:idEnterprise IS NULL OR c.enterprise.id = :idEnterprise)""";
 }

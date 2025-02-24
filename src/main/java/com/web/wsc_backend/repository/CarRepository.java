@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Cars, Long> {
@@ -22,4 +23,9 @@ public interface CarRepository extends JpaRepository<Cars, Long> {
                                 @Param("startDate") LocalDate startDate,
                                 @Param("endDate") LocalDate endDate,
                                 Pageable pageable);
+    @Query(Queries.FIND_TYPE_CARS_BY_FILTERS)
+    List<TypeEnum> findByTypeByFilter(@Param("idEnterprise") Long idEnterprise,
+                                      @Param("startDate") LocalDate startDate,
+                                      @Param("endDate") LocalDate endDate);
+
 }

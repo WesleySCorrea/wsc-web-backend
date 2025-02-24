@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +40,16 @@ public class CarController {
     public ResponseEntity<CarResponseDTO> save(@RequestBody CarRequestDTO carRequest) {
 
         return ResponseEntity.ok().body(carService.save(carRequest));
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<List<TypeEnum>> findTypesByFilter(
+            @RequestParam(required = false) Long enterpriseId,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate) {
+
+        List<TypeEnum> types = carService.findTypeByFilter(enterpriseId, startDate, endDate);
+
+        return ResponseEntity.ok().body(types);
     }
 }

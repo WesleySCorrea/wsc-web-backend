@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +23,6 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     @Override
     public Page<CarResponseDTO> findCarsByFilter(String plate, String enterprise, TypeEnum type, LocalDate startDate, LocalDate endDate, Pageable pageable) {
-
-        Date startDateSQL = startDate != null ? Date.valueOf(startDate) : null;
-        Date endDateSQL = endDate != null ? Date.valueOf(endDate) : null;
-
 
         Page<Cars> carsPage = carRepository.findCarsByFilter(
                 plate,
@@ -50,7 +48,14 @@ public class CarServiceImpl implements CarService {
         } catch (Exception e) {
         throw new PersistFailedException("Fail when the car was persisted");
     }
-
         return new CarResponseDTO(car);
+    }
+
+    @Override
+    public List<TypeEnum> findTypeByFilter(Long enterpriseId, LocalDate startDate, LocalDate endDate) {
+
+        List<TypeEnum> types = carRepository.findByTypeByFilter(enterpriseId, startDate, endDate);
+
+        return types;
     }
 }
