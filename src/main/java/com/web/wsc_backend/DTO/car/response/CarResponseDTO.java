@@ -13,6 +13,7 @@ public class CarResponseDTO {
     private Long year;
     private String chassis;
     private Long enterpriseId;
+    private String enterpriseName;
     private TypeEnum type;
     private LocalDate maturity;
 
@@ -22,6 +23,7 @@ public class CarResponseDTO {
         this.year = car.getYear();
         this.chassis = car.getChassis();
         this.enterpriseId = car.getEnterprise().getId();
+        this.enterpriseName = car.getEnterprise().getName();
         this.type = car.getType();
         this.maturity = car.getMaturity();
     }

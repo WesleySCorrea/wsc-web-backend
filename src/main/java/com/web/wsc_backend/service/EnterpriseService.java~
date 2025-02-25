@@ -1,0 +1,13 @@
+package com.web.wsc_backend.service;
+
+import com.web.wsc_backend.DTO.enterprise.response.EnterpriseBasicDTO;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+import static com.web.wsc_backend.repository.queries.Queries.FIND_BASIC_ENTERPRISE;
+
+public interface EnterpriseService {
+    @Query(FIND_BASIC_ENTERPRISE)
+    List<EnterpriseBasicDTO> findBasicInfoEnterprise();
+}
