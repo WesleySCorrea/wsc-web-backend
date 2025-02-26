@@ -18,5 +18,5 @@ public interface CarService {
             LocalDate endDate,
             Pageable pageable);
     CarResponseDTO save(CarRequestDTO carRequestDTO);
-    List<TypeEnum> findTypeByFilter(Long enterpriseId, LocalDate startDate, LocalDate endDate);
+    List<TypeEnum> findTypeByFilter(String enterprise, LocalDate startDate, LocalDate endDate);
 }

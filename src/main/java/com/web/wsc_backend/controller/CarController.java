@@ -44,11 +44,11 @@ public class CarController {
 
     @GetMapping("/types")
     public ResponseEntity<List<TypeEnum>> findTypesByFilter(
-            @RequestParam(required = false) Long enterpriseId,
+            @RequestParam(required = false) String enterprise,
             @RequestParam(required = false) LocalDate startDate,
             @RequestParam(required = false) LocalDate endDate) {
 
-        List<TypeEnum> types = carService.findTypeByFilter(enterpriseId, startDate, endDate);
+        List<TypeEnum> types = carService.findTypeByFilter(enterprise, startDate, endDate);
 
         return ResponseEntity.ok().body(types);
     }

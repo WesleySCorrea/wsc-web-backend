@@ -15,7 +15,4 @@ public class Queries {
             WHERE (:idEnterprise IS NULL OR c.enterprise.id = :idEnterprise)
             AND (c.maturity >= COALESCE(:startDate, (SELECT MIN(c2.maturity) FROM Cars c2)))
             AND (c.maturity <= COALESCE(:endDate, (SELECT MAX(c2.maturity) FROM Cars c2)))""";
-
-    public static final String FIND_BASIC_ENTERPRISE = """
-            SELECT e.id AS id, e.name AS name FROM Enterprises e""";
 }
