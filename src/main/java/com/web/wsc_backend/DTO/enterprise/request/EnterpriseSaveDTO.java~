@@ -1,0 +1,2 @@
+package com.web.wsc_backend.DTO.enterprise.request;public class EnterpriseSaveDTO {
+}

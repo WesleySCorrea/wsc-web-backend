@@ -20,13 +20,12 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     @Override
-    public Page<CarResponseDTO> findCarsByFilter(String plate, String enterprise, TypeEnum type, LocalDate startDate, LocalDate endDate, Pageable pageable) {
+    public Page<CarResponseDTO> findCarsByFilter(String plate, String enterprise, TypeEnum type, LocalDate endDate, Pageable pageable) {
 
         Page<Cars> carsPage = carRepository.findCarsByFilter(
                 plate,
                 enterprise,
                 type,
-                startDate,
                 endDate,
                 pageable);
 
@@ -50,9 +49,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<TypeEnum> findTypeByFilter(Long enterpriseId, LocalDate startDate, LocalDate endDate) {
+    public List<TypeEnum> findTypeByFilter(String enterprise, LocalDate startDate, LocalDate endDate) {
 
-        List<TypeEnum> types = carRepository.findByTypeByFilter(enterpriseId, startDate, endDate);
+        List<TypeEnum> types = carRepository.findByTypeByFilter(enterprise, startDate, endDate);
 
         return types;
     }

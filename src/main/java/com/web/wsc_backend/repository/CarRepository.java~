@@ -23,7 +23,7 @@ public interface CarRepository extends JpaRepository<Cars, Long> {
                                 @Param("endDate") LocalDate endDate,
                                 Pageable pageable);
     @Query(Queries.FIND_TYPE_CARS_BY_FILTERS)
-    List<TypeEnum> findByTypeByFilter(@Param("enterprise") String idEnterprise,
+    List<TypeEnum> findByTypeByFilter(@Param("enterprise") String enterprise,
                                       @Param("startDate") LocalDate startDate,
                                       @Param("endDate") LocalDate endDate);
 

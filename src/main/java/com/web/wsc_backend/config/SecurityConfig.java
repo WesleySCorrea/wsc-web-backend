@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers( HttpMethod.POST,"/login", "/login/refresh").permitAll()
                         .requestMatchers( HttpMethod.GET,"/cars","/cars/types", "/enterprise/list", "/users").permitAll()
-                        .requestMatchers( HttpMethod.POST,"/cars", "/users").permitAll()
+                        .requestMatchers( HttpMethod.POST,"/cars", "/enterprise", "/users").permitAll()
 //                        .requestMatchers( HttpMethod.GET,"/car").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandling -> exceptionHandling

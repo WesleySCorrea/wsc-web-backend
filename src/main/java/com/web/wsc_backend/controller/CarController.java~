@@ -23,6 +23,7 @@ public class CarController {
             @RequestParam(required = false) String plate,
             @RequestParam(required = false) String enterprise,
             @RequestParam(required = false) TypeEnum type,
+            @RequestParam(required = false) LocalDate startDate,
             @RequestParam(required = false) LocalDate endDate,
             Pageable pageable) {
 
@@ -30,6 +31,7 @@ public class CarController {
                 plate,
                 enterprise,
                 type,
+                startDate,
                 endDate,
                 pageable));
     }

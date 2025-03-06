@@ -14,6 +14,7 @@ public interface CarService {
             String plate,
             String enterprise,
             TypeEnum type,
+            LocalDate startDate,
             LocalDate endDate,
             Pageable pageable);
     CarResponseDTO save(CarRequestDTO carRequestDTO);

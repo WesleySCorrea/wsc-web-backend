@@ -1,12 +1,11 @@
 package com.web.wsc_backend.controller;
 
+import com.web.wsc_backend.DTO.enterprise.request.EnterpriseSaveDTO;
 import com.web.wsc_backend.DTO.enterprise.response.EnterpriseBasicDTO;
 import com.web.wsc_backend.service.EnterpriseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,13 @@ public class EnterpriseController {
         List<EnterpriseBasicDTO> enterpriseBasicDTO = enterpriseService.findBasicInfoEnterprise();
 
         return ResponseEntity.ok().body(enterpriseBasicDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<EnterpriseBasicDTO> save(@RequestBody EnterpriseSaveDTO enterpriseDTO) {
+
+        EnterpriseBasicDTO enterprise = enterpriseService.save(enterpriseDTO);
+
+        return ResponseEntity.ok().body(enterprise);
     }
 }

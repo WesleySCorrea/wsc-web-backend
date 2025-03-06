@@ -19,7 +19,6 @@ public interface CarRepository extends JpaRepository<Cars, Long> {
     Page<Cars> findCarsByFilter(@Param("plate") String plate,
                                 @Param("enterprise") String enterprise,
                                 @Param("type") TypeEnum type,
-                                @Param("startDate") LocalDate startDate,
                                 @Param("endDate") LocalDate endDate,
                                 Pageable pageable);
     @Query(Queries.FIND_TYPE_CARS_BY_FILTERS)

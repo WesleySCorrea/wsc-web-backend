@@ -20,13 +20,12 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     @Override
-    public Page<CarResponseDTO> findCarsByFilter(String plate, String enterprise, TypeEnum type, LocalDate startDate, LocalDate endDate, Pageable pageable) {
+    public Page<CarResponseDTO> findCarsByFilter(String plate, String enterprise, TypeEnum type, LocalDate endDate, Pageable pageable) {
 
         Page<Cars> carsPage = carRepository.findCarsByFilter(
                 plate,
                 enterprise,
                 type,
-                startDate,
                 endDate,
                 pageable);
 
@@ -39,7 +38,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarResponseDTO save(CarRequestDTO carRequestDTO) {
 
-        Cars car = new Cars();
+        Cars car;
 
         try {
             car = carRepository.save(carRequestDTO.toEntity());
