@@ -38,7 +38,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarResponseDTO save(CarRequestDTO carRequestDTO) {
 
-        Cars car = new Cars();
+        Cars car;
 
         try {
             car = carRepository.save(carRequestDTO.toEntity());

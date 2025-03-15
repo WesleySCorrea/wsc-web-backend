@@ -39,12 +39,23 @@ public class CarServiceImpl implements CarService {
     public CarResponseDTO save(CarRequestDTO carRequestDTO) {
 
         Cars car;
-
         try {
             car = carRepository.save(carRequestDTO.toEntity());
         } catch (Exception e) {
         throw new PersistFailedException("Fail when the car was persisted");
     }
+        return new CarResponseDTO(car);
+    }
+
+    @Override
+    public CarResponseDTO findCarById(Long id) {
+
+        Cars car;
+        try {
+            car = carRepository.findById(id).get();
+        } catch (Exception e) {
+            throw new RuntimeException("Car not found");
+        }
         return new CarResponseDTO(car);
     }
 

@@ -34,6 +34,14 @@ public class CarController {
                 pageable));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CarResponseDTO> findCarById(@PathVariable Long id) {
+
+        CarResponseDTO car = carService.findCarById(id);
+
+        return ResponseEntity.ok().body(car);
+    }
+
     @PostMapping
     public ResponseEntity<CarResponseDTO> save(@RequestBody CarRequestDTO carRequest) {
 
