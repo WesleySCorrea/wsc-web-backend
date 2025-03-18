@@ -1,6 +1,7 @@
 package com.web.wsc_backend.service;
 
 import com.web.wsc_backend.DTO.car.request.CarRequestDTO;
+import com.web.wsc_backend.DTO.car.request.UpdateCarRequestDTO;
 import com.web.wsc_backend.DTO.car.response.CarResponseDTO;
 import com.web.wsc_backend.enums.TypeEnum;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ public interface CarService {
             LocalDate endDate,
             Pageable pageable);
     CarResponseDTO save(CarRequestDTO carRequestDTO);
+    CarResponseDTO update(UpdateCarRequestDTO updateCarRequestDTO);
     CarResponseDTO findCarById(Long id);
     List<TypeEnum> findTypeByFilter(String enterprise, LocalDate startDate, LocalDate endDate);
 }

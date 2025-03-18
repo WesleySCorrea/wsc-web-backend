@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers( HttpMethod.POST,"/login", "/login/refresh").permitAll()
                         .requestMatchers( HttpMethod.GET,"/cars", "/cars/*","/cars/types", "/enterprise/list", "/users").permitAll()
+                        .requestMatchers( HttpMethod.PUT,"/cars").permitAll()
                         .requestMatchers( HttpMethod.POST,"/cars", "/enterprise", "/users").permitAll()
 //                        .requestMatchers( HttpMethod.GET,"/car").hasRole("ADMIN")
                         .anyRequest().authenticated())
@@ -50,7 +51,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 

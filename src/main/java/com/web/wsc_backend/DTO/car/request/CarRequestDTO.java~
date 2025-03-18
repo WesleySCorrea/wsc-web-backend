@@ -3,15 +3,24 @@ package com.web.wsc_backend.DTO.car.request;
 import com.web.wsc_backend.entity.Cars;
 import com.web.wsc_backend.entity.Enterprises;
 import com.web.wsc_backend.enums.TypeEnum;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
+@Getter
 public class CarRequestDTO {
+
+    @NotBlank
     private String plate;
+    @NotNull
     private Long year;
+    @NotBlank
     private String chassis;
+    @NotNull
     private Long enterpriseId;
+    @NotBlank
     private TypeEnum type;
     private LocalDate maturity;
 

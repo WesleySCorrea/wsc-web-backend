@@ -1,12 +1,14 @@
 package com.web.wsc_backend.service.impl;
 
 import com.web.wsc_backend.DTO.car.request.CarRequestDTO;
+import com.web.wsc_backend.DTO.car.request.UpdateCarRequestDTO;
 import com.web.wsc_backend.DTO.car.response.CarResponseDTO;
 import com.web.wsc_backend.entity.Cars;
 import com.web.wsc_backend.enums.TypeEnum;
 import com.web.wsc_backend.exceptions.runtime.PersistFailedException;
 import com.web.wsc_backend.repository.CarRepository;
 import com.web.wsc_backend.service.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,26 @@ public class CarServiceImpl implements CarService {
             car = carRepository.save(carRequestDTO.toEntity());
         } catch (Exception e) {
         throw new PersistFailedException("Fail when the car was persisted");
+        }
+        return new CarResponseDTO(car);
     }
+
+    @Override
+    public CarResponseDTO update(UpdateCarRequestDTO updateCarRequestDTO) {
+
+        Cars car = carRepository.findById(updateCarRequestDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Carro não encontrado para o ID: " + updateCarRequestDTO.getId()));
+
+        car.setPlate(updateCarRequestDTO.getPlate());
+        car.setYear(updateCarRequestDTO.getYear());
+        car.setChassis(updateCarRequestDTO.getChassis());
+        car.setType(updateCarRequestDTO.getType());
+
+        try {
+            car = carRepository.save(car);
+        } catch (Exception e) {
+            throw new PersistFailedException("Falha ao persistir o carro: " + e.getMessage());
+        }
         return new CarResponseDTO(car);
     }
 
